@@ -13,7 +13,7 @@
        ======================================== */
     :root {
       --color-naranja: #ea6409;
-      --color-crema: #d4c9b8;
+      --color-crema: #e8d5b0;
       --color-pedra: #e0d8cc;
       --color-fosc: #1a1510;
       --color-text: #2c2419;
@@ -90,13 +90,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+      transition: background 0.3s ease;
     }
 
     .navbar.scrolled {
-      background: rgba(26,21,16,0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: var(--color-fosc);
     }
 
     .navbar-logo {
