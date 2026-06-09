@@ -973,7 +973,19 @@
       color: rgba(242,237,228,0.8);
     }
 
+    .wave-divider {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      margin: -1px 0;
+    }
 
+    .wave-divider svg {
+      display: block;
+      width: 100%;
+      height: 48px;
+    }
   </style>
 </head>
 <body>
@@ -1062,6 +1074,13 @@
     </svg>
   </a>
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 L1440,0 L1440,24 Q720,52 0,24 Z" fill="#1a1510"/>
+    <path d="M0,24 Q720,52 1440,24 L1440,48 L0,48 Z" fill="#1a1510"/>
+  </svg>
+</div>
+
 <div class="localitzacio-strip" aria-hidden="true">
   <span>Muralles de la Vila Vella</span>
   <span class="loc-sep">·</span>
@@ -1129,6 +1148,13 @@
   </div>
 </section>
 
+<div class="wave-divider wave-fosc-to-fosc" aria-hidden="true">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 L1440,0 L1440,24 Q720,52 0,24 Z" fill="#1a1510"/>
+    <path d="M0,24 Q720,52 1440,24 L1440,48 L0,48 Z" fill="#0d0a07"/>
+  </svg>
+</div>
+
   <!-- ========================================
        SECCIÓ — GASTRONOMIA (ÀLBUM)
        ======================================== -->
@@ -1141,11 +1167,18 @@
       </div>
       <div class="carr-nav reveal-up delay-3">
         <button class="carr-btn" id="carrPrev" aria-label="Anterior">&#8249;</button>
-        <span class="carr-num" id="carrNum">1 / 20</span>
+        <span class="carr-num" id="carrNum">1 / 21</span>
         <button class="carr-btn" id="carrNext" aria-label="Següent">&#8250;</button>
       </div>
     </div>
   </section>
+
+<div class="wave-divider wave-dark-to-pedra" aria-hidden="true">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 L1440,0 L1440,24 Q720,52 0,24 Z" fill="#0d0a07"/>
+    <path d="M0,24 Q720,52 1440,24 L1440,48 L0,48 Z" fill="#e0d8cc"/>
+  </svg>
+</div>
 
   <!-- ========================================
        SECCIÓ — RESSENYES
@@ -1176,6 +1209,13 @@
       <div class="review-dots" id="reviewDots"></div>
     </div>
   </section>
+
+<div class="wave-divider wave-pedra-to-fosc" aria-hidden="true">
+  <svg viewBox="0 0 1440 48" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 L1440,0 L1440,24 Q720,52 0,24 Z" fill="#e0d8cc"/>
+    <path d="M0,24 Q720,52 1440,24 L1440,48 L0,48 Z" fill="#1a1510"/>
+  </svg>
+</div>
 
   <!-- ========================================
        SECCIÓ — RESERVA & CONTACTE
@@ -1444,11 +1484,11 @@
       { src: 'Images/tiradito.jpg', alt: 'Tiradito' },
       { src: 'Images/tataki_atun.jpg', alt: 'Tataki de tonyina' },
       { src: 'Images/steak_tartar.jpg', alt: 'Steak tartar' },
+      { src: 'Images/steak_tartar2.jpg', alt: 'Steak tartar elaborat' },
       { src: 'Images/tacos_cesar.jpg', alt: 'Tacos Cèsar' },
       { src: 'Images/perrito.jpg', alt: 'Perrito' },
       { src: 'Images/bravas.jpg', alt: 'Patates braves' },
       { src: 'Images/fritos.jpg', alt: 'Fregits' },
-      { src: 'Images/ensalada.jpg', alt: 'Amanida' },
       { src: 'Images/croquetas.jpg', alt: 'Croquetes' },
       { src: 'Images/coca.jpg', alt: 'Coca' },
       { src: 'Images/vino2.jpg', alt: 'Vi del celler' },
