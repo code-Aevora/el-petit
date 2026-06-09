@@ -863,6 +863,34 @@
         clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
       }
     }
+
+    .familia-section {
+      padding: 5rem 2rem;
+    }
+
+    .familia-col {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .familia-img-wrap {
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    .familia-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    }
+
+    @media (max-width: 767px) {
+      .familia-img-wrap {
+        height: 260px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -949,6 +977,20 @@
       <path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.655 4.8 1.8 6.8L2 30l7.4-1.774A13.93 13.93 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6a11.55 11.55 0 0 1-5.88-1.6l-.42-.25-4.394 1.052 1.08-3.94-.276-.44A11.56 11.56 0 0 1 4.4 16C4.4 9.59 9.59 4.4 16 4.4S27.6 9.59 27.6 16 22.41 27.6 16 27.6zm6.34-8.64c-.347-.174-2.05-1.012-2.368-1.128-.317-.116-.548-.174-.778.174-.23.347-.893 1.128-1.095 1.358-.2.23-.4.26-.748.086-.347-.174-1.465-.54-2.79-1.72-1.032-.918-1.727-2.05-1.93-2.397-.2-.347-.02-.535.152-.707.155-.155.347-.405.52-.607.174-.2.23-.347.347-.578.116-.23.058-.433-.03-.607-.086-.174-.778-1.878-1.066-2.572-.28-.675-.566-.583-.778-.594l-.664-.012c-.23 0-.607.086-.924.433-.317.347-1.21 1.183-1.21 2.884s1.24 3.344 1.413 3.574c.174.23 2.44 3.727 5.91 5.225.826.356 1.47.569 1.972.728.828.264 1.582.226 2.178.137.664-.1 2.05-.838 2.34-1.647.29-.81.29-1.504.203-1.647-.086-.143-.317-.23-.664-.405z"/>
     </svg>
   </a>
+
+<section class="section familia-section bg-fosc" id="familia" aria-labelledby="titol-familia">
+  <div class="two-col familia-col">
+    <div class="familia-img-wrap">
+      <img src="Images/façana_hero.jpg" alt="La família Roca-Vera, propietaris d'El Petit">
+    </div>
+    <div class="familia-text">
+      <span class="section-label" style="color:var(--color-naranja);">La nostra història</span>
+      <h2 class="section-title" id="titol-familia" style="color:var(--color-crema);">Un projecte amb cor de la família Roca-Vera</h2>
+      <div class="title-line"></div>
+      <p class="section-text" style="color:rgba(242,237,228,0.85);">El Petit és el nou projecte gastronòmic d'en Carlus Roca i la seva família: la Nuri, la seva dona; la Júlia, l'Alícia i la Raquel, les seves filles; i en Pau, el seu gendre. Després de 20 anys al capdavant del restaurant Can Carlus, un dels referents de la cuina tossenca, van decidir que havia arribat el moment de fer un canvi i avançar cap a una cuina més personal i innovadora i oferir una oferta gastronòmica fins ara inexistent a Tossa de Mar.</p>
+    </div>
+  </div>
+</section>
 
 <!-- TRADICIÓ -->
 <section class="section bg-crema ep-tradicio" id="tradicio" aria-labelledby="titol-tradicio">
