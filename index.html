@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Petit · Tossa de Mar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================
+       VARIABLES I RESET
+       ======================================== */
+    :root {
+      --color-naranja: #ea6409;
+      --color-crema: #f2ede4;
+      --color-pedra: #e0d8cc;
+      --color-fosc: #1a1510;
+      --color-text: #2c2419;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Almarai', sans-serif;
+      color: var(--color-text);
+      background: var(--color-crema);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      touch-action: manipulation;
+    }
+
+    /* ========================================
+       UTILITATS
+       ======================================== */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* ========================================
+       NAVBAR
+       ======================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: var(--color-fosc);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(26,21,16,0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .navbar-logo {
+      max-height: 60px;
+      width: auto;
+      display: block;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 1.5rem;
+      margin-left: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--color-crema);
+      font-weight: 400;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-naranja);
+    }
+
+    /* ========================================
+       HERO — CAROUSEL INFINIT
+       ======================================== */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--color-fosc);
+    }
+
+    .hero-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    .hero-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(26,21,16,0.55) 0%, rgba(26,21,16,0.3) 50%, rgba(26,21,16,0.6) 100%);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      z-index: 2;
+      color: var(--color-crema);
+    }
+
+    .hero-logo {
+      max-width: min(500px, 80vw);
+      width: 100%;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    }
+
+    .hero-subtitle {
+      font-weight: 300;
+      font-size: clamp(0.9rem, 2vw, 1.15rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .hero-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      margin-bottom: 1.5rem;
+      color: var(--color-crema);
+    }
+
+    .hero-rating .stars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      color: #FFD700;
+    }
+
+    .hero-rating .stars svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.75rem 2rem;
+      background: var(--color-naranja);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 24px rgba(234,100,9,0.35);
+    }
+
+    /* ========================================
+       WHATSAPP STICKY
+       ======================================== */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+      border: 3px solid #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: pulse-wa 2s infinite;
+      transition: transform 0.2s;
+    }
+
+    .whatsapp-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .whatsapp-btn svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    @keyframes pulse-wa {
+      0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); }
+      70% { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    }
+
+    /* ========================================
+       SECCIONS GENERALS
+       ======================================== */
+    .section {
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      color: var(--color-naranja);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .section-title {
+      font-weight: 700;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      line-height: 1.25;
+    }
+
+    .title-line {
+      width: 60px;
+      height: 2px;
+      background: var(--color-naranja);
+      margin: 0.75rem 0 1.25rem;
+    }
+
+    .section-text {
+      font-weight: 300;
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      line-height: 1.7;
+    }
+
+    .two-col {
+      display: grid;
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .two-col img {
+      border-radius: 0;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+      width: 100%;
+    }
+
+    .bg-crema { background: var(--color-crema); }
+    .bg-pedra { background: var(--color-pedra); }
+    .bg-fosc { background: var(--color-fosc); color: var(--color-crema); }
+
+    /* ========================================
+       ÀLBUM GASTRONOMIA — CARRUSEL
+       ======================================== */
+    .album-section {
+      padding: 4rem 0;
+    }
+
+    .gastronomia-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .carr-viewport {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 2px;
+      background: #0d0a07;
+      aspect-ratio: 4 / 3;
+      position: relative;
+      cursor: grab;
+    }
+
+    .carr-viewport.dragging {
+      cursor: grabbing;
+    }
+
+    .carr-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    .carr-slide {
+      min-width: 100%;
+      height: 100%;
+      flex-shrink: 0;
+    }
+
+    .carr-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .carr-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1.25rem 0 0.5rem;
+    }
+
+    .carr-btn {
+      background: none;
+      border: 1px solid rgba(242,237,228,0.3);
+      color: var(--color-crema);
+      font-size: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carr-btn:hover:not(:disabled) {
+      background: var(--color-naranja);
+      border-color: var(--color-naranja);
+    }
+
+    .carr-btn:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    .carr-num {
+      color: var(--color-pedra);
+      font-size: 0.85rem;
+      font-weight: 300;
+      min-width: 4rem;
+      text-align: center;
+    }
+
+    @media (max-width: 767px) {
+      .carr-viewport {
+        aspect-ratio: 1 / 1;
+      }
+    }
+
+    /* ========================================
+       RESERVA & CONTACTE (3 columnes)
+       ======================================== */
+    .reserva-contacte {
+      padding: 4rem 1.5rem;
+    }
+
+    .three-col {
+      display: grid;
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .col-label {
+      display: block;
+      color: var(--color-naranja);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .horaris-compact {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.5rem 1.25rem;
+      font-size: 0.95rem;
+      color: var(--color-crema);
+    }
+
+    .horaris-compact .dia {
+      font-weight: 700;
+    }
+
+    .horaris-compact .hora {
+      font-weight: 300;
+    }
+
+    .horaris-compact .tancat {
+      color: var(--color-naranja);
+      font-weight: 400;
+    }
+
+    .horaris-compact .dia-dimecres {
+      opacity: 0.75;
+    }
+
+    .reserva-form {
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 400;
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+      color: var(--color-crema);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid rgba(242,237,228,0.25);
+      border-radius: 2px;
+      background: rgba(242,237,228,0.08);
+      color: var(--color-crema);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--color-naranja);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(242,237,228,0.45);
+    }
+
+    .form-group select option {
+      background: var(--color-fosc);
+      color: var(--color-crema);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .confirmacio {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--color-crema);
+    }
+
+    .confirmacio h3 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-naranja);
+    }
+
+    .confirmacio p {
+      font-weight: 300;
+      font-size: 1.05rem;
+    }
+
+    .contacte-info p {
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 300;
+      color: var(--color-crema);
+    }
+
+    .contacte-info a:hover {
+      color: var(--color-naranja);
+    }
+
+    .contacte-info svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--color-naranja);
+    }
+
+    .mapa-wrapper iframe {
+      display: block;
+      width: 100%;
+      height: 250px;
+      border: 0;
+      border-radius: 2px;
+    }
+
+    /* ========================================
+       RESSENYES
+       ======================================== */
+    .reviews-container {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      min-height: 280px;
+    }
+
+    .review-card {
+      background: #fff;
+      color: var(--color-text);
+      border-radius: 4px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .review-card.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .review-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-naranja);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .review-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .review-author {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .review-stars {
+      color: #FFD700;
+      display: flex;
+      gap: 2px;
+      font-size: 0.9rem;
+    }
+
+    .review-text {
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      quotes: "«" "»";
+    }
+
+    .review-text::before {
+      content: open-quote;
+    }
+
+    .review-text::after {
+      content: close-quote;
+    }
+
+    .rating-general {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .rating-general .stars-row {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      color: #FFD700;
+    }
+
+    .review-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.45rem;
+      margin-top: 1.25rem;
+    }
+
+    .review-dot {
+      font-size: 0.75rem;
+      color: var(--color-pedra);
+      transition: color 0.3s;
+      cursor: default;
+    }
+
+    .review-dot.active {
+      color: var(--color-naranja);
+    }
+
+    /* ========================================
+       FOOTER
+       ======================================== */
+    .footer {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      max-width: 200px;
+      width: 100%;
+      margin: 0 auto 1.5rem;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .socials a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      color: var(--color-crema);
+      border-radius: 50%;
+      background: rgba(242,237,228,0.08);
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .socials a:hover {
+      background: var(--color-naranja);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .socials svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .legal {
+      font-size: 0.8rem;
+      color: rgba(242,237,228,0.55);
+      font-weight: 300;
+    }
+
+    /* ========================================
+       DESKTOP
+       ======================================== */
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+
+      .three-col {
+        grid-template-columns: 1fr 1.3fr 1fr;
+        align-items: start;
+      }
+    }
+
+    /* ========================================
+       REDUCED MOTION
+       ======================================== */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ========================================
+       SECCIONS AMB PERSONALITAT
+       ======================================== */
+
+    /* Les tres seccions necessiten position relative */
+    .ep-tradicio,
+    .ep-producte,
+    .ep-celler {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* TRADICIÓ — imatge amb clip-path diagonal en desktop */
+    .ep-tradicio-img {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ep-tradicio-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+    }
+
+    /* CELLER — imatge amb marc taronja */
+    .ep-celler-img-wrap {
+      position: relative;
+    }
+
+    .ep-celler-img-wrap img {
+      width: 100%;
+      display: block;
+      box-shadow: none;
+    }
+
+    /* CELLER — llista de vins en 2 columnes */
+    .ep-vins {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem 1.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .ep-vins span {
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1.8vw, 1rem);
+      color: rgba(242,237,228,0.8);
+      line-height: 1.5;
+    }
+
+    /* MOBILE */
+    @media (max-width: 767px) {
+      .ep-tradicio .two-col {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .ep-tradicio-img {
+        width: calc(100% + 4rem);
+        margin: 0 -2rem -5rem;
+        height: 180px;
+        clip-path: none;
+      }
+
+      .ep-tradicio-img::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: linear-gradient(to bottom, transparent, var(--color-pedra));
+        pointer-events: none;
+      }
+
+      .ep-tradicio-text {
+        padding-top: 0;
+      }
+
+      /* Producte: layout normal en mobile, sense canvis */
+
+      /* Celler: foto amunt, text avall */
+      .ep-celler .two-col {
+        flex-direction: column;
+      }
+
+      .ep-vins {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.25rem 1rem;
+      }
+
+    }
+
+    @media (min-width: 768px) {
+      /* Tradició: clip-path diagonal en desktop */
+      .ep-tradicio-img {
+        clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================
+       NAVBAR
+       ======================================== -->
+  <header class="navbar" id="navbar" role="banner">
+    <a href="/" onclick="location.reload(); return false;" class="navbar-brand" aria-label="El Petit - Inici">
+      <img src="https://elpetitrestaurant.es/wp-content/uploads/2026/01/LOGOPETIT_NOU3.png" alt="Logo El Petit" class="navbar-logo">
+    </a>
+    <nav class="nav-links" aria-label="Navegació principal">
+      <a href="#tradicio">Tradició</a>
+      <a href="#producte">Producte</a>
+      <a href="#celler">Celler</a>
+      <a href="#gastronomia">Gastronomia</a>
+      <a href="#reserva-contacte">Reserva</a>
+      <a href="#ressenyes">Ressenyes</a>
+    </nav>
+  </header>
+
+  <!-- ========================================
+       HERO — CAROUSEL INFINIT
+       ======================================== -->
+  <section class="hero" id="inici" aria-label="Galeria principal">
+    <div class="hero-track" id="heroTrack" role="list">
+      <!-- Originals -->
+      <div class="hero-slide" role="listitem"><img src="Images/façana_hero.jpg" alt="Façana del restaurant El Petit a Tossa de Mar"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/bacalao.jpg" alt="Plat de bacallà"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/flambejant.jpg" alt="Flambejat a la cuina"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/interior2.jpg" alt="Interior del restaurant"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/interior1.jpg" alt="Saló principal del restaurant"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/canelon.jpg" alt="Canelons"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/steak_tartar.jpg" alt="Steak tartar"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/vino4.jpg" alt="Selecció de vins"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/steak_tartar3.jpg" alt="Steak tartar elaborat"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/xupxup.jpg" alt="Xup-xup de cuina tradicional"></div>
+      <div class="hero-slide" role="listitem"><img src="Images/suquet_de_peix.jpg" alt="Suquet de peix"></div>
+      <!-- Clons per l'infinit -->
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/façana_hero.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/bacalao.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/flambejant.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/interior2.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/interior1.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/canelon.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/steak_tartar.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/vino4.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/steak_tartar3.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/xupxup.jpg" alt=""></div>
+      <div class="hero-slide" role="listitem" aria-hidden="true"><img src="Images/suquet_de_peix.jpg" alt=""></div>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <img src="https://elpetitrestaurant.es/wp-content/uploads/2026/01/LOGOPETIT_NOUESLOGN.png" alt="El Petit - Cuina tradicional amb un toc contemporani" class="hero-logo">
+      <p class="hero-subtitle">Cuina tradicional amb un toc contemporani</p>
+      <div class="hero-rating">
+        <span class="stars" aria-label="4,5 estrelles">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <defs>
+              <linearGradient id="halfStar">
+                <stop offset="50%" stop-color="#FFD700"/>
+                <stop offset="50%" stop-color="rgba(255,215,0,0.3)"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#halfStar)" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        </span>
+        <span>4,5 · 599 ressenyes Google</span>
+      </div>
+      <a href="#reserva-contacte" class="btn">Fes la teva reserva</a>
+    </div>
+  </section>
+
+  <!-- ========================================
+       WHATSAPP STICKY
+       ======================================== -->
+  <a href="https://wa.me/34622725043" target="_blank" rel="noopener noreferrer" class="whatsapp-btn" aria-label="Contacta per WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" width="32" height="32" aria-hidden="true">
+      <path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.655 4.8 1.8 6.8L2 30l7.4-1.774A13.93 13.93 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6a11.55 11.55 0 0 1-5.88-1.6l-.42-.25-4.394 1.052 1.08-3.94-.276-.44A11.56 11.56 0 0 1 4.4 16C4.4 9.59 9.59 4.4 16 4.4S27.6 9.59 27.6 16 22.41 27.6 16 27.6zm6.34-8.64c-.347-.174-2.05-1.012-2.368-1.128-.317-.116-.548-.174-.778.174-.23.347-.893 1.128-1.095 1.358-.2.23-.4.26-.748.086-.347-.174-1.465-.54-2.79-1.72-1.032-.918-1.727-2.05-1.93-2.397-.2-.347-.02-.535.152-.707.155-.155.347-.405.52-.607.174-.2.23-.347.347-.578.116-.23.058-.433-.03-.607-.086-.174-.778-1.878-1.066-2.572-.28-.675-.566-.583-.778-.594l-.664-.012c-.23 0-.607.086-.924.433-.317.347-1.21 1.183-1.21 2.884s1.24 3.344 1.413 3.574c.174.23 2.44 3.727 5.91 5.225.826.356 1.47.569 1.972.728.828.264 1.582.226 2.178.137.664-.1 2.05-.838 2.34-1.647.29-.81.29-1.504.203-1.647-.086-.143-.317-.23-.664-.405z"/>
+    </svg>
+  </a>
+
+<!-- TRADICIÓ -->
+<section class="section bg-crema ep-tradicio" id="tradicio" aria-labelledby="titol-tradicio">
+  <div class="two-col">
+    <div class="ep-tradicio-text">
+      <span class="section-label">Tradició</span>
+      <h2 class="section-title" id="titol-tradicio">Respecte per la tradició i les arrels</h2>
+      <div class="title-line"></div>
+      <p class="section-text">Oferim una cuina creativa i contemporània inspirada en la tradició i les arrels, però al mateix temps innovadora, fresca i divertida. Un nou concepte gastronòmic a Tossa de Mar.</p>
+    </div>
+    <div class="ep-tradicio-img">
+      <img src="Images/bacalao.jpg" alt="Plat de bacallà que representa la tradició cuinera del restaurant">
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTE -->
+<section class="section bg-pedra ep-producte" id="producte" aria-labelledby="titol-producte">
+  <div class="two-col">
+    <div>
+      <span class="section-label">Qualitat</span>
+      <h2 class="section-title" id="titol-producte">Producte de qualitat, de proximitat i ecològic</h2>
+      <div class="title-line"></div>
+      <p class="section-text">Seleccionem els millors productes per oferir-te una cuina de qualitat, proximitat i ecològica. Cuidem el nostre hort amb molt de carinyo.</p>
+    </div>
+    <div>
+      <img src="Images/11.jpg" alt="Productes frescos de proximitat i ecològics">
+    </div>
+  </div>
+</section>
+
+<!-- CELLER -->
+<section class="section bg-fosc ep-celler" id="celler" aria-labelledby="titol-celler">
+  <div class="two-col">
+    <div>
+      <span class="section-label" style="color:var(--color-naranja);">Celler</span>
+      <h2 class="section-title" id="titol-celler" style="color:var(--color-crema);">Celler propi</h2>
+      <div class="title-line"></div>
+      <div class="ep-vins">
+        <span>Noooi</span><span>Noooia</span><span>Macu Ros</span><span>Xindas</span><span>Vinya Sagols</span><span>Cap pentiner</span><span>Bombolleta de Tossa</span><span>Infern d'en caixa</span><span>Xinagues Àmfora</span><span>Ava blanc · rosat · negre</span>
+      </div>
+    </div>
+    <div class="ep-celler-img-wrap">
+      <img src="Images/fotos_vinos.jpg" alt="Selecció de vins del celler propi">
+    </div>
+  </div>
+</section>
+
+  <!-- ========================================
+       SECCIÓ — GASTRONOMIA (ÀLBUM)
+       ======================================== -->
+  <section class="album-section bg-fosc" id="gastronomia" aria-labelledby="titol-gastronomia">
+    <div class="gastronomia-inner">
+      <h2 class="section-title" id="titol-gastronomia" style="text-align:center; color:var(--color-crema); padding: 0 1.5rem 2rem;">La nostra gastronomia</h2>
+      <div class="carr-viewport" id="carrViewport">
+        <div class="carr-track" id="carrTrack"></div>
+      </div>
+      <div class="carr-nav">
+        <button class="carr-btn" id="carrPrev" aria-label="Anterior">&#8249;</button>
+        <span class="carr-num" id="carrNum">1 / 20</span>
+        <button class="carr-btn" id="carrNext" aria-label="Següent">&#8250;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       SECCIÓ — RESSENYES
+       ======================================== -->
+  <section class="section bg-crema" id="ressenyes" aria-labelledby="titol-ressenyes">
+    <h2 class="section-title" id="titol-ressenyes" style="text-align:center; margin-bottom:0.5rem;">El que diuen de nosaltres</h2>
+    <div class="rating-general">
+      <span class="stars-row" aria-label="4,5 estrelles">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <defs>
+            <linearGradient id="halfStar2">
+              <stop offset="50%" stop-color="#FFD700"/>
+              <stop offset="50%" stop-color="rgba(255,215,0,0.35)"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#halfStar2)" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+        </svg>
+      </span>
+      <span style="font-weight:700; color:var(--color-text);">4,5</span>
+      <span style="font-weight:300; opacity:0.8;">· 599 ressenyes</span>
+    </div>
+    <div class="reviews-container">
+      <div class="review-card active" id="reviewCard"></div>
+      <div class="review-dots" id="reviewDots"></div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       SECCIÓ — RESERVA & CONTACTE
+       ======================================== -->
+  <section class="section bg-fosc reserva-contacte" id="reserva-contacte" aria-labelledby="titol-reserva-contacte">
+    <h2 class="section-title" id="titol-reserva-contacte" style="text-align:center; color:var(--color-crema); margin-bottom:3rem;">Reserva & Contacte</h2>
+    <div class="three-col">
+      <!-- Horaris -->
+      <div>
+        <span class="col-label">Horaris</span>
+        <div class="horaris-compact" role="list">
+          <div class="dia" role="listitem">Dilluns</div>
+          <div class="hora" role="listitem">12:30–16:00 / 19:00–22:00</div>
+          <div class="dia" role="listitem">Dimarts</div>
+          <div class="hora" role="listitem">12:30–16:00 / 19:00–22:00</div>
+          <div class="dia dia-dimecres" role="listitem">Dimecres</div>
+          <div class="hora tancat" role="listitem">Tancat</div>
+          <div class="dia" role="listitem">Dijous</div>
+          <div class="hora" role="listitem">12:30–16:00 / 19:00–22:00</div>
+          <div class="dia" role="listitem">Divendres</div>
+          <div class="hora" role="listitem">12:30–16:00 / 19:00–22:00</div>
+          <div class="dia" role="listitem">Dissabte</div>
+          <div class="hora" role="listitem">12:30–16:00 / 19:00–22:00</div>
+          <div class="dia" role="listitem">Diumenge</div>
+          <div class="hora" role="listitem">12:30–16:00 / 19:00–22:00</div>
+        </div>
+      </div>
+      <!-- Formulari -->
+      <div class="reserva-form" id="reservaFormContainer">
+        <form id="formReserva" novalidate>
+          <div class="form-group">
+            <label for="nom">Nom i cognoms</label>
+            <input type="text" id="nom" name="nom" placeholder="El teu nom" required minlength="2">
+          </div>
+          <div class="form-group">
+            <label for="telefon">Telèfon</label>
+            <input type="tel" id="telefon" name="telefon" placeholder="+34 ..." required>
+          </div>
+          <div class="form-group">
+            <label for="data">Data</label>
+            <input type="date" id="data" name="data" required>
+          </div>
+          <div class="form-group">
+            <label for="hora">Hora</label>
+            <select id="hora" name="hora" required>
+              <option value="" disabled selected>Selecciona una hora</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="persones">Nombre de persones</label>
+            <select id="persones" name="persones" required>
+              <option value="" disabled selected>Nombre de persones</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="comentaris">Comentaris <span style="opacity:0.6;">(opcional)</span></label>
+            <textarea id="comentaris" name="comentaris" placeholder="Al·lèrgies, ocasió especial..."></textarea>
+          </div>
+          <button type="submit" class="btn" style="width:100%;">Enviar reserva</button>
+        </form>
+      </div>
+      <!-- Contacte + Mapa -->
+      <div>
+        <span class="col-label">On som</span>
+        <div class="contacte-info">
+          <p>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span>Carrer Portal, 18 · 17320 Tossa de Mar</span>
+          </p>
+          <p>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <a href="tel:+34622725043">+34 622 725 043</a>
+          </p>
+        </div>
+        <div class="mapa-wrapper">
+          <iframe src="https://maps.google.com/maps?q=41.7168142,2.9324053&z=17&output=embed" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" title="Ubicació d'El Petit a Tossa de Mar"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+  <footer class="footer bg-fosc" role="contentinfo">
+    <img src="https://elpetitrestaurant.es/wp-content/uploads/2026/01/LOGOPETIT_NOU3.png" alt="El Petit" class="footer-logo">
+    <div class="socials" aria-label="Xarxes socials">
+      <a href="https://www.instagram.com/elpetit.restaurant/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </a>
+      <a href="https://www.tripadvisor.com/Restaurant_Review-g230087-d23469403-Reviews-El_Petit-Tossa_de_Mar_Costa_Brava_Province_of_Girona_Catalonia.html" target="_blank" rel="noopener noreferrer" aria-label="TripAdvisor">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 2c1.93 0 3.737.572 5.25 1.555L15.5 7H8.5L6.75 5.555A7.96 7.96 0 0 1 12 4zM7 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm10 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm-5 .5c.828 0 1.5.672 1.5 1.5S12.828 13 12 13s-1.5-.672-1.5-1.5S11.172 10 12 10zm-5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm10 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+        </svg>
+      </a>
+      <a href="https://www.google.com/maps/place/Restaurante+el+Petit/@41.7168164,2.9302044,17z" target="_blank" rel="noopener noreferrer" aria-label="Google Maps">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+      </a>
+    </div>
+    <p class="legal">© 2025 El Petit · Tossa de Mar · Tots els drets reservats</p>
+  </footer>
+
+  <!-- ========================================
+       JAVASCRIPT
+       ======================================== -->
+  <script>
+    /* ---------- DADES ---------- */
+    const ressenyes = [
+      { autor: "Nima Farighi", text: "Amazing quality food and lovely atmosphere under the castle walls. A level of love and care for the food you only ever see in family owned places.", estrelles: 5 },
+      { autor: "jenna brown", text: "The waitress was so so so friendly and helpful. The lamb was out of this world and worth going out of your way for.", estrelles: 5 },
+      { autor: "Alisa Mos", text: "The food was spectacular, very beautifully presented and very delicious! Our server Lucy was a star. Oh and the cheesecake is just DIVINEEEE!!", estrelles: 5 },
+      { autor: "Arsalan E", text: "Meeting Carlos, the owner and chef of this restaurant, was a delightful experience. He not only owns and serves his own wine from a local winery, but his orange wine was among the best I've ever tasted.", estrelles: 5 },
+      { autor: "Dustin Pratt", text: "Absolutely loved our experience at El Petit! The food was fresh, flavorful, and beautifully presented. Easily one of the highlights of our trip.", estrelles: 5 },
+      { autor: "Emily Sumpter", text: "My partner and I had an amazing meal here. The service was great and the waiters clearly take a lot of care and pride in what they do.", estrelles: 5 },
+      { autor: "Evan Cochlin", text: "Everything was exceptional! MUST TRY THE XUIXO. One of our favorite dining experiences in all of Spain!", estrelles: 5 },
+      { autor: "Ellen Miller", text: "This was the best meal we have had in a month in Spain. The Tataki was the highlight as the starter. This is a can't miss restaurant in Tossa!", estrelles: 5 },
+      { autor: "Robbie Harlow", text: "Easily the best meal I had in Tossa de Mar during my 3 day visit. Friendly, easygoing service, fresh and thoughtfully prepared food.", estrelles: 5 },
+      { autor: "sergio chiesa", text: "Excellent ingredients very well prepared with a touch of individuality. Best place for us in Tossa de Mar.", estrelles: 5 },
+      { autor: "Tim Beullens", text: "Lovely place, great food, the best wine. El Patron is present and comes to take the order. Very passionate about his food and wine.", estrelles: 5 },
+      { autor: "Marcel", text: "This place is just amazing, best restaurant around. They grow their own tomatoes and few other vegetables as well, and you can notice the difference!", estrelles: 5 },
+      { autor: "Josep Ortega", text: "Menú de arroços i fideus molt correcte per 38€. Musclos espectaculars. El servei amable i amb ganes d'explicar la seva filosofia de cuina.", estrelles: 5 },
+      { autor: "Joan Moreno", text: "Dels millors llocs que hi ha a Tossa. El Tiramisú el millor que he tastat mai. Repetirem sens dubte!", estrelles: 5 },
+      { autor: "valter Strömberg", text: "Very good food and the owner was very nice. He is passionate about food and even makes his own wine. Very worth the price.", estrelles: 5 }
+    ];
+
+    const heroImagesCount = 11;
+    const heroTrack = document.getElementById('heroTrack');
+    let heroIndex = 0;
+    let heroInterval;
+
+    /* ---------- NAVBAR SCROLL ---------- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    /* ---------- HERO CAROUSEL INFINIT ---------- */
+    function moveHero() {
+      heroIndex++;
+      heroTrack.style.transform = `translateX(-${heroIndex * 100}%)`;
+
+      if (heroIndex >= heroImagesCount) {
+        setTimeout(() => {
+          heroTrack.style.transition = 'none';
+          heroIndex = 0;
+          heroTrack.style.transform = `translateX(0)`;
+          heroTrack.offsetHeight; // force reflow
+          heroTrack.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        }, 800);
+      }
+    }
+
+    heroInterval = setInterval(moveHero, 6000);
+
+    /* ---------- RESSENYES CAROUSEL ---------- */
+    const reviewCard = document.getElementById('reviewCard');
+    const reviewDots = document.getElementById('reviewDots');
+    let reviewIndex = 0;
+
+    function buildDots() {
+      reviewDots.innerHTML = '';
+      for (let i = 0; i < ressenyes.length; i++) {
+        const span = document.createElement('span');
+        span.className = 'review-dot' + (i === reviewIndex ? ' active' : '');
+        span.textContent = i === reviewIndex ? '●' : '○';
+        span.setAttribute('aria-hidden', 'true');
+        reviewDots.appendChild(span);
+      }
+    }
+
+    function updateDots(i) {
+      const dots = reviewDots.querySelectorAll('.review-dot');
+      dots.forEach((dot, idx) => {
+        dot.textContent = idx === i ? '●' : '○';
+        dot.classList.toggle('active', idx === i);
+      });
+    }
+
+    function renderReview(i) {
+      const r = ressenyes[i];
+      const stars = Array.from({ length: r.estrelles }, () =>
+        '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>'
+      ).join('');
+      const initial = r.autor.charAt(0).toUpperCase();
+
+      reviewCard.classList.remove('active');
+      setTimeout(() => {
+        reviewCard.innerHTML = `
+          <div class="review-header">
+            <div class="review-avatar" aria-hidden="true">${initial}</div>
+            <div class="review-meta">
+              <span class="review-author">${r.autor}</span>
+              <span class="review-stars" aria-label="${r.estrelles} estrelles">${stars}</span>
+            </div>
+          </div>
+          <p class="review-text">${r.text}</p>
+        `;
+        reviewCard.classList.add('active');
+        updateDots(i);
+      }, 400);
+    }
+
+    buildDots();
+    renderReview(0);
+    setInterval(() => {
+      reviewIndex = (reviewIndex + 1) % ressenyes.length;
+      renderReview(reviewIndex);
+    }, 5000);
+
+    /* ---------- FORMULARI RESERVA ---------- */
+    const selectHora = document.getElementById('hora');
+    const selectPersones = document.getElementById('persones');
+
+    // Hores: 12:30-15:30 i 19:00-21:30 cada 30min
+    const hores = [];
+    for (let h = 12; h <= 15; h++) {
+      hores.push(`${h}:30`);
+      if (h < 15) hores.push(`${h + 1}:00`);
+    }
+    for (let h = 19; h <= 21; h++) {
+      hores.push(`${h}:00`);
+      hores.push(`${h}:30`);
+    }
+    hores.forEach(h => {
+      const opt = document.createElement('option');
+      opt.value = h;
+      opt.textContent = h;
+      selectHora.appendChild(opt);
+    });
+
+    for (let p = 1; p <= 12; p++) {
+      const opt = document.createElement('option');
+      opt.value = p;
+      opt.textContent = p + (p === 1 ? ' persona' : ' persones');
+      selectPersones.appendChild(opt);
+    }
+
+    const formReserva = document.getElementById('formReserva');
+    const reservaFormContainer = document.getElementById('reservaFormContainer');
+
+    formReserva.addEventListener('submit', (e) => {
+      e.preventDefault();
+      reservaFormContainer.innerHTML = `
+        <div class="confirmacio" role="status" aria-live="polite">
+          <h3>Gràcies!</h3>
+          <p>Ens posarem en contacte amb vosaltres aviat.</p>
+        </div>
+      `;
+    });
+
+    /* ---------- CARRUSEL GASTRONOMIA ---------- */
+    var carrPhotos = [
+      { src: 'Images/arroz.jpg', alt: 'Arròs' },
+      { src: 'Images/arroz_negro.jpg', alt: 'Arròs negre' },
+      { src: 'Images/arroz_pulpo.jpg', alt: 'Arròs amb pop' },
+      { src: 'Images/arroz_seco2.jpg', alt: 'Arròs sec' },
+      { src: 'Images/bravas.jpg', alt: 'Patates braves' },
+      { src: 'Images/coca.jpg', alt: 'Coca' },
+      { src: 'Images/vino2.jpg', alt: 'Vi' },
+      { src: 'Images/vino3.jpg', alt: 'Vi' },
+      { src: 'Images/vino5.jpg', alt: 'Vi' },
+      { src: 'Images/croquetas.jpg', alt: 'Croquetes' },
+      { src: 'Images/ensalada.jpg', alt: 'Amanida' },
+      { src: 'Images/fritos.jpg', alt: 'Fregits' },
+      { src: 'Images/mejillones.jpg', alt: 'Musclos' },
+      { src: 'Images/ostra.jpg', alt: 'Ostra' },
+      { src: 'Images/paella.jpg', alt: 'Paella' },
+      { src: 'Images/perrito.jpg', alt: 'Perrito' },
+      { src: 'Images/steak_tartar.jpg', alt: 'Steak tartar' },
+      { src: 'Images/tacos_cesar.jpg', alt: 'Tacos Cèsar' },
+      { src: 'Images/tataki_atun.jpg', alt: 'Tataki de tonyina' },
+      { src: 'Images/tiradito.jpg', alt: 'Tiradito' }
+    ];
+
+    var carrTrack = document.getElementById('carrTrack');
+    var carrPrev = document.getElementById('carrPrev');
+    var carrNext = document.getElementById('carrNext');
+    var carrNum = document.getElementById('carrNum');
+    var carrIdx = 0;
+    var carrTotal = carrPhotos.length;
+
+    carrPhotos.forEach(function(p) {
+      var slide = document.createElement('div');
+      slide.className = 'carr-slide';
+      var img = document.createElement('img');
+      img.src = p.src;
+      img.alt = p.alt;
+      img.loading = 'lazy';
+      slide.appendChild(img);
+      carrTrack.appendChild(slide);
+    });
+
+    function carrGoTo(i) {
+      carrIdx = i;
+      carrTrack.style.transform = 'translateX(-' + (carrIdx * 100) + '%)';
+      carrNum.textContent = (carrIdx + 1) + ' / ' + carrTotal;
+      carrPrev.disabled = carrIdx === 0;
+      carrNext.disabled = carrIdx === carrTotal - 1;
+    }
+
+    carrPrev.addEventListener('click', function() { if (carrIdx > 0) carrGoTo(carrIdx - 1); });
+    carrNext.addEventListener('click', function() { if (carrIdx < carrTotal - 1) carrGoTo(carrIdx + 1); });
+
+    var carrTouchStartX = 0;
+    var carrTouchStartY = 0;
+    var carrDragging = false;
+    var carrDragStartX = 0;
+    var carrVP = document.getElementById('carrViewport');
+
+    carrVP.addEventListener('touchstart', function(e) {
+      carrTouchStartX = e.touches[0].clientX;
+      carrTouchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    carrVP.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - carrTouchStartX;
+      var dy = e.changedTouches[0].clientY - carrTouchStartY;
+      if (Math.abs(dx) < 30 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) { if (carrIdx < carrTotal - 1) carrGoTo(carrIdx + 1); }
+      else { if (carrIdx > 0) carrGoTo(carrIdx - 1); }
+    }, { passive: true });
+
+    carrVP.addEventListener('mousedown', function(e) {
+      carrDragging = true;
+      carrDragStartX = e.clientX;
+      carrVP.classList.add('dragging');
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (!carrDragging) return;
+      e.preventDefault();
+    });
+
+    window.addEventListener('mouseup', function(e) {
+      if (!carrDragging) return;
+      carrDragging = false;
+      carrVP.classList.remove('dragging');
+      var dx = e.clientX - carrDragStartX;
+      if (Math.abs(dx) < 30) return;
+      if (dx < 0) { if (carrIdx < carrTotal - 1) carrGoTo(carrIdx + 1); }
+      else { if (carrIdx > 0) carrGoTo(carrIdx - 1); }
+    });
+
+    carrGoTo(0);
+
+    /* ---------- DATA MÍNIMA = AVUI ---------- */
+    const inputData = document.getElementById('data');
+    const avui = new Date().toISOString().split('T')[0];
+    inputData.setAttribute('min', avui);
+  </script>
+</body>
+</html>
