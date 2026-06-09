@@ -17,6 +17,7 @@
       --color-pedra: #e0d8cc;
       --color-fosc: #1a1510;
       --color-text: #2c2419;
+      --color-beige: #d4c9b8;
     }
 
     *, *::before, *::after {
@@ -612,8 +613,8 @@
     }
 
     .review-card {
-      background: var(--color-fosc);
-      color: var(--color-crema);
+      background: var(--color-beige);
+      color: var(--color-text);
       border-radius: 4px;
       padding: 1.5rem;
       box-shadow: 0 4px 24px rgba(0,0,0,0.2);
@@ -656,7 +657,7 @@
     .review-author {
       font-weight: 700;
       font-size: 0.95rem;
-      color: var(--color-crema);
+      color: var(--color-text);
     }
 
     .review-stars {
@@ -670,7 +671,8 @@
       font-weight: 300;
       font-size: 0.95rem;
       line-height: 1.6;
-      color: rgba(242,237,228,0.85);
+      color: var(--color-text);
+      opacity: 0.85;
       quotes: "«" "»";
     }
 
@@ -707,9 +709,13 @@
 
     .review-dot {
       font-size: 0.75rem;
-      color: var(--color-pedra);
+      color: rgba(44,36,25,0.3);
       transition: color 0.3s;
       cursor: default;
+    }
+
+    .review-dot.active {
+      color: var(--color-naranja);
     }
 
     .review-dot.active {
@@ -1094,6 +1100,10 @@
         font-size: 1.25rem;
       }
     }
+
+    #ressenyes .rating-general span {
+      color: var(--color-crema);
+    }
   </style>
 </head>
 <body>
@@ -1273,8 +1283,8 @@
   <!-- ========================================
        SECCIÓ — RESSENYES
        ======================================== -->
-  <section class="section bg-crema" id="ressenyes" aria-labelledby="titol-ressenyes">
-    <h2 class="section-title reveal-up" id="titol-ressenyes" style="text-align:center; margin-bottom:0.5rem;">El que diuen de nosaltres</h2>
+  <section class="section bg-fosc" id="ressenyes" aria-labelledby="titol-ressenyes">
+    <h2 class="section-title reveal-up" id="titol-ressenyes" style="text-align:center; color:var(--color-crema); margin-bottom:0.5rem;">El que diuen de nosaltres</h2>
     <div class="rating-general reveal-up delay-1">
       <span class="stars-row" aria-label="4,5 estrelles">
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
