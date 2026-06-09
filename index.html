@@ -780,31 +780,6 @@
       overflow: hidden;
     }
 
-    /* TRADICIÓ — imatge amb clip-path diagonal en desktop */
-    .ep-tradicio-img {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .ep-tradicio-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.18);
-    }
-
-    /* CELLER — imatge amb marc taronja */
-    .ep-celler-img-wrap {
-      position: relative;
-    }
-
-    .ep-celler-img-wrap img {
-      width: 100%;
-      display: block;
-      box-shadow: none;
-    }
-
     /* CELLER — llista de vins en 2 columnes */
     .ep-vins {
       display: flex;
@@ -839,75 +814,9 @@
       text-transform: lowercase;
     }
 
-    /* MOBILE */
     @media (max-width: 767px) {
-      .ep-tradicio .two-col {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .ep-tradicio-img {
-        width: calc(100% + 4rem);
-        margin: 0 -2rem -5rem;
-        height: 180px;
-        clip-path: none;
-      }
-
-      .ep-tradicio-img::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 80px;
-        background: linear-gradient(to bottom, transparent, var(--color-pedra));
-        pointer-events: none;
-      }
-
-      .ep-tradicio-text {
-        padding-top: 0;
-      }
-
-      /* Producte: layout normal en mobile, sense canvis */
-
-      /* Celler: foto amunt, text avall */
-      .ep-celler .two-col {
-        flex-direction: column;
-      }
-
-    }
-
-    @media (min-width: 768px) {
-      /* Tradició: clip-path diagonal en desktop */
-      .ep-tradicio-img {
-        clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
-      }
-
-      .ep-tradicio .two-col {
-        gap: 0;
-        grid-template-columns: 1fr 1.2fr;
-      }
-
-      .ep-tradicio-img {
-        min-height: 420px;
-      }
-
-      .ep-producte .two-col {
-        grid-template-columns: 1.2fr 1fr;
-        gap: 0;
-      }
-
-      .ep-producte .two-col img {
-        min-height: 380px;
-        object-fit: cover;
-        width: 100%;
-        display: block;
-      }
-
-      .ep-celler .two-col {
-        grid-template-columns: 1fr 0.85fr;
-        align-items: start;
-        gap: 3rem;
+      .familia-img-wrap {
+        height: 260px;
       }
     }
 
@@ -1001,27 +910,6 @@
     .loc-sep {
       color: var(--color-naranja) !important;
       letter-spacing: 0 !important;
-    }
-
-    .ep-tradicio-img img {
-      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
-    }
-
-    .ep-producte .two-col > div:last-child {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .ep-producte .two-col > div:last-child img {
-      box-shadow: 0 24px 64px rgba(0,0,0,0.18);
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .ep-celler-img-wrap img {
-      box-shadow: 0 24px 48px rgba(0,0,0,0.45);
     }
 
     .gastronomia-inner {
@@ -1153,58 +1041,46 @@
 </section>
 
 <!-- TRADICIÓ -->
-<section class="section bg-crema ep-tradicio" id="tradicio" aria-labelledby="titol-tradicio">
-  <div class="two-col">
-    <div class="ep-tradicio-text reveal-up">
-      <span class="section-label">Tradició</span>
-      <h2 class="section-title" id="titol-tradicio">Respecte per la tradició i les arrels</h2>
-      <div class="title-line"></div>
-      <p class="section-text">Oferim una cuina creativa i contemporània inspirada en la tradició i les arrels, però al mateix temps innovadora, fresca i divertida. Un nou concepte gastronòmic a Tossa de Mar.</p>
-    </div>
-    <div class="ep-tradicio-img reveal-up delay-1">
-      <img src="Images/bacalao.jpg" alt="Plat de bacallà que representa la tradició cuinera del restaurant">
-    </div>
+<section class="section ep-tradicio ep-fullbg" id="tradicio" aria-labelledby="titol-tradicio" style="background-image: url('Images/bacalao.jpg');">
+  <div class="ep-fullbg-overlay"></div>
+  <div class="ep-fullbg-content">
+    <span class="section-label">Tradició</span>
+    <h2 class="section-title" id="titol-tradicio">Respecte per la tradició i les arrels</h2>
+    <div class="title-line" style="margin: 0.75rem auto 1.25rem;"></div>
+    <p class="section-text">Oferim una cuina creativa i contemporània inspirada en la tradició i les arrels, però al mateix temps innovadora, fresca i divertida. Un nou concepte gastronòmic a Tossa de Mar.</p>
   </div>
 </section>
 
 <!-- PRODUCTE -->
-<section class="section bg-pedra ep-producte" id="producte" aria-labelledby="titol-producte">
-  <div class="two-col">
-    <div class="reveal-up">
-      <span class="section-label">Qualitat</span>
-      <h2 class="section-title" id="titol-producte">Producte de qualitat, de proximitat i ecològic</h2>
-      <div class="title-line"></div>
-      <p class="section-text">Seleccionem els millors productes per oferir-te una cuina de qualitat, proximitat i ecològica. Cuidem el nostre hort amb molt de carinyo.</p>
-    </div>
-    <div class="reveal-up delay-1">
-      <img src="Images/11.jpg" alt="Productes frescos de proximitat i ecològics">
-    </div>
+<section class="section ep-producte ep-fullbg" id="producte" aria-labelledby="titol-producte" style="background-image: url('Images/11.jpg');">
+  <div class="ep-fullbg-overlay"></div>
+  <div class="ep-fullbg-content">
+    <span class="section-label">Qualitat</span>
+    <h2 class="section-title" id="titol-producte">Producte de qualitat, de proximitat i ecològic</h2>
+    <div class="title-line" style="margin: 0.75rem auto 1.25rem;"></div>
+    <p class="section-text">Seleccionem els millors productes per oferir-te una cuina de qualitat, proximitat i ecològica. Cuidem el nostre hort amb molt de carinyo.</p>
   </div>
 </section>
 
 <!-- CELLER -->
-<section class="section bg-fosc ep-celler" id="celler" aria-labelledby="titol-celler">
-  <div class="two-col">
-    <div class="reveal-up">
-      <span class="section-label" style="color:var(--color-naranja);">Celler</span>
-      <h2 class="section-title" id="titol-celler" style="color:var(--color-crema);">Celler propi</h2>
-      <div class="title-line"></div>
-      <p class="section-text" style="color:rgba(242,237,228,0.65); margin-bottom:1rem;">Elaborats a les vinyes d'Es vi d'en Carlus, a Tossa de Mar.</p>
-      <div class="ep-vins">
-        <div class="ep-vins-row"><span class="ep-vins-nom">Noooi</span><span class="ep-vins-tipus">blanc</span></div>
-        <div class="ep-vins-row"><span class="ep-vins-nom">Noooia</span><span class="ep-vins-tipus">negre</span></div>
-        <div class="ep-vins-row"><span class="ep-vins-nom">Macu Ros</span><span class="ep-vins-tipus">rosat</span></div>
-        <div class="ep-vins-row"><span class="ep-vins-nom">Xindas</span><span class="ep-vins-tipus">negre</span></div>
-        <div class="ep-vins-row"><span class="ep-vins-nom">Vinya Sagols</span><span class="ep-vins-tipus">blanc</span></div>
-        <div class="ep-vins-row"><span class="ep-vins-nom">Cap pentiner</span><span class="ep-vins-tipus">negre</span></div>
-        <div class="ep-vins-row"><span class="ep-vins-nom">Bombolleta de Tossa</span><span class="ep-vins-tipus">ancestral</span></div>
-        <div class="ep-vins-row"><span class="ep-vins-nom">Infern d'en caixa</span><span class="ep-vins-tipus">negre</span></div>
-        <div class="ep-vins-row"><span class="ep-vins-nom">Xinagues Àmfora</span><span class="ep-vins-tipus">àmfora</span></div>
-        <div class="ep-vins-row"><span class="ep-vins-nom">Ava</span><span class="ep-vins-tipus">blanc · rosat · negre</span></div>
-      </div>
-    </div>
-    <div class="ep-celler-img-wrap reveal-up delay-1">
-      <img src="Images/fotos_vinos.jpg" alt="Selecció de vins del celler propi">
+<section class="section ep-celler ep-fullbg" id="celler" aria-labelledby="titol-celler" style="background-image: url('Images/fotos_vinos.jpg');">
+  <div class="ep-fullbg-overlay"></div>
+  <div class="ep-fullbg-content">
+    <span class="section-label" style="color:var(--color-naranja);">Celler</span>
+    <h2 class="section-title" id="titol-celler" style="color:var(--color-crema);">Celler propi</h2>
+    <div class="title-line" style="margin: 0.75rem auto 1.25rem;"></div>
+    <p class="section-text" style="color:rgba(242,237,228,0.75); margin-bottom:1.5rem;">Elaborats a les vinyes d'Es vi d'en Carlus, a Tossa de Mar.</p>
+    <div class="ep-vins ep-vins-centrat">
+      <div class="ep-vins-row"><span class="ep-vins-nom">Noooi</span><span class="ep-vins-tipus">blanc</span></div>
+      <div class="ep-vins-row"><span class="ep-vins-nom">Noooia</span><span class="ep-vins-tipus">negre</span></div>
+      <div class="ep-vins-row"><span class="ep-vins-nom">Macu Ros</span><span class="ep-vins-tipus">rosat</span></div>
+      <div class="ep-vins-row"><span class="ep-vins-nom">Xindas</span><span class="ep-vins-tipus">negre</span></div>
+      <div class="ep-vins-row"><span class="ep-vins-nom">Vinya Sagols</span><span class="ep-vins-tipus">blanc</span></div>
+      <div class="ep-vins-row"><span class="ep-vins-nom">Cap pentiner</span><span class="ep-vins-tipus">negre</span></div>
+      <div class="ep-vins-row"><span class="ep-vins-nom">Bombolleta de Tossa</span><span class="ep-vins-tipus">ancestral</span></div>
+      <div class="ep-vins-row"><span class="ep-vins-nom">Infern d'en caixa</span><span class="ep-vins-tipus">negre</span></div>
+      <div class="ep-vins-row"><span class="ep-vins-nom">Xinagues Àmfora</span><span class="ep-vins-tipus">àmfora</span></div>
+      <div class="ep-vins-row"><span class="ep-vins-nom">Ava</span><span class="ep-vins-tipus">blanc · rosat · negre</span></div>
     </div>
   </div>
 </section>
