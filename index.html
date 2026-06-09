@@ -35,6 +35,9 @@
       background: var(--color-crema);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
     img {
@@ -907,6 +910,57 @@
         height: 260px;
       }
     }
+
+    /* ========================================
+       BORDES REDONDEJATS I SOLAPAMENT
+       ======================================== */
+    .section,
+    .album-section,
+    .familia-section,
+    .reserva-contacte {
+      border-radius: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      border-radius: 0 0 24px 24px;
+    }
+
+    .section + .section,
+    .section + .album-section,
+    .album-section + .section,
+    .familia-section + .section,
+    .hero + .familia-section,
+    .section + .reserva-contacte {
+      margin-top: -12px;
+    }
+
+    /* ========================================
+       REVEAL ON SCROLL
+       ======================================== */
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-up.delay-1 { transition-delay: 0.1s; }
+    .reveal-up.delay-2 { transition-delay: 0.2s; }
+    .reveal-up.delay-3 { transition-delay: 0.3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-up {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -995,7 +1049,7 @@
   </a>
 
 <section class="section familia-section bg-fosc" id="familia" aria-labelledby="titol-familia">
-  <div class="two-col familia-col">
+  <div class="two-col familia-col reveal-up">
     <div class="familia-img-wrap">
       <img src="Images/façana_hero.jpg" alt="La família Roca-Vera, propietaris d'El Petit">
     </div>
@@ -1011,13 +1065,13 @@
 <!-- TRADICIÓ -->
 <section class="section bg-crema ep-tradicio" id="tradicio" aria-labelledby="titol-tradicio">
   <div class="two-col">
-    <div class="ep-tradicio-text">
+    <div class="ep-tradicio-text reveal-up">
       <span class="section-label">Tradició</span>
       <h2 class="section-title" id="titol-tradicio">Respecte per la tradició i les arrels</h2>
       <div class="title-line"></div>
       <p class="section-text">Oferim una cuina creativa i contemporània inspirada en la tradició i les arrels, però al mateix temps innovadora, fresca i divertida. Un nou concepte gastronòmic a Tossa de Mar.</p>
     </div>
-    <div class="ep-tradicio-img">
+    <div class="ep-tradicio-img reveal-up delay-1">
       <img src="Images/bacalao.jpg" alt="Plat de bacallà que representa la tradició cuinera del restaurant">
     </div>
   </div>
@@ -1026,13 +1080,13 @@
 <!-- PRODUCTE -->
 <section class="section bg-pedra ep-producte" id="producte" aria-labelledby="titol-producte">
   <div class="two-col">
-    <div>
+    <div class="reveal-up">
       <span class="section-label">Qualitat</span>
       <h2 class="section-title" id="titol-producte">Producte de qualitat, de proximitat i ecològic</h2>
       <div class="title-line"></div>
       <p class="section-text">Seleccionem els millors productes per oferir-te una cuina de qualitat, proximitat i ecològica. Cuidem el nostre hort amb molt de carinyo.</p>
     </div>
-    <div>
+    <div class="reveal-up delay-1">
       <img src="Images/11.jpg" alt="Productes frescos de proximitat i ecològics">
     </div>
   </div>
@@ -1041,7 +1095,7 @@
 <!-- CELLER -->
 <section class="section bg-fosc ep-celler" id="celler" aria-labelledby="titol-celler">
   <div class="two-col">
-    <div>
+    <div class="reveal-up">
       <span class="section-label" style="color:var(--color-naranja);">Celler</span>
       <h2 class="section-title" id="titol-celler" style="color:var(--color-crema);">Celler propi</h2>
       <div class="title-line"></div>
@@ -1059,7 +1113,7 @@
         <div class="ep-vins-row"><span class="ep-vins-nom">Ava</span><span class="ep-vins-tipus">blanc · rosat · negre</span></div>
       </div>
     </div>
-    <div class="ep-celler-img-wrap">
+    <div class="ep-celler-img-wrap reveal-up delay-1">
       <img src="Images/fotos_vinos.jpg" alt="Selecció de vins del celler propi">
     </div>
   </div>
@@ -1070,12 +1124,12 @@
        ======================================== -->
   <section class="album-section bg-fosc" id="gastronomia" aria-labelledby="titol-gastronomia">
     <div class="gastronomia-inner">
-      <h2 class="section-title" id="titol-gastronomia" style="text-align:center; color:var(--color-crema); padding: 0 1.5rem 2rem;">La nostra gastronomia</h2>
-      <p style="text-align:center; color:rgba(242,237,228,0.5); font-size:0.8rem; font-weight:300; letter-spacing:0.12em; text-transform:uppercase; margin: -1rem 0 2rem;">Arrossos · Peix · Carns · Tapes · Celler</p>
-      <div class="carr-viewport" id="carrViewport">
+      <h2 class="section-title reveal-up" id="titol-gastronomia" style="text-align:center; color:var(--color-crema); padding: 0 1.5rem 2rem;">La nostra gastronomia</h2>
+      <p class="reveal-up delay-1" style="text-align:center; color:rgba(242,237,228,0.5); font-size:0.8rem; font-weight:300; letter-spacing:0.12em; text-transform:uppercase; margin: -1rem 0 2rem;">Arrossos · Peix · Carns · Tapes · Celler</p>
+      <div class="carr-viewport reveal-up delay-2" id="carrViewport">
         <div class="carr-track" id="carrTrack"></div>
       </div>
-      <div class="carr-nav">
+      <div class="carr-nav reveal-up delay-3">
         <button class="carr-btn" id="carrPrev" aria-label="Anterior">&#8249;</button>
         <span class="carr-num" id="carrNum">1 / 20</span>
         <button class="carr-btn" id="carrNext" aria-label="Següent">&#8250;</button>
@@ -1087,8 +1141,8 @@
        SECCIÓ — RESSENYES
        ======================================== -->
   <section class="section bg-pedra" id="ressenyes" aria-labelledby="titol-ressenyes">
-    <h2 class="section-title" id="titol-ressenyes" style="text-align:center; margin-bottom:0.5rem;">El que diuen de nosaltres</h2>
-    <div class="rating-general">
+    <h2 class="section-title reveal-up" id="titol-ressenyes" style="text-align:center; margin-bottom:0.5rem;">El que diuen de nosaltres</h2>
+    <div class="rating-general reveal-up delay-1">
       <span class="stars-row" aria-label="4,5 estrelles">
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -1107,7 +1161,7 @@
       <span style="font-weight:700; color:var(--color-text);">4,5</span>
       <span style="font-weight:300; opacity:0.8;">· 599 ressenyes</span>
     </div>
-    <div class="reviews-container">
+    <div class="reviews-container reveal-up delay-2">
       <div class="review-card active" id="reviewCard"></div>
       <div class="review-dots" id="reviewDots"></div>
     </div>
@@ -1117,8 +1171,8 @@
        SECCIÓ — RESERVA & CONTACTE
        ======================================== -->
   <section class="section bg-fosc reserva-contacte" id="reserva-contacte" aria-labelledby="titol-reserva-contacte">
-    <h2 class="section-title" id="titol-reserva-contacte" style="text-align:center; color:var(--color-crema); margin-bottom:3rem;">Reserva & Contacte</h2>
-    <div class="three-col">
+    <h2 class="section-title reveal-up" id="titol-reserva-contacte" style="text-align:center; color:var(--color-crema); margin-bottom:3rem;">Reserva & Contacte</h2>
+    <div class="three-col reveal-up delay-1">
       <!-- Horaris -->
       <div>
         <span class="col-label">Horaris</span>
@@ -1199,8 +1253,8 @@
        FOOTER
        ======================================== -->
   <footer class="footer bg-fosc" role="contentinfo">
-    <img src="https://elpetitrestaurant.es/wp-content/uploads/2026/01/LOGOPETIT_NOU3.png" alt="El Petit" class="footer-logo">
-    <div class="socials" aria-label="Xarxes socials">
+    <img class="footer-logo reveal-up" src="https://elpetitrestaurant.es/wp-content/uploads/2026/01/LOGOPETIT_NOU3.png" alt="El Petit">
+    <div class="socials reveal-up delay-1" aria-label="Xarxes socials">
       <a href="https://www.instagram.com/elpetit.restaurant/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
@@ -1217,7 +1271,7 @@
         </svg>
       </a>
     </div>
-    <p class="legal">© 2025 El Petit · Tossa de Mar · Tots els drets reservats</p>
+    <p class="legal reveal-up delay-2">© 2025 El Petit · Tossa de Mar · Tots els drets reservats</p>
   </footer>
 
   <!-- ========================================
@@ -1467,6 +1521,20 @@
     const inputData = document.getElementById('data');
     const avui = new Date().toISOString().split('T')[0];
     inputData.setAttribute('min', avui);
+
+    /* ---------- REVEAL ON SCROLL ---------- */
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal-up').forEach(function(el) {
+      revealObserver.observe(el);
+    });
   </script>
 </body>
 </html>
